@@ -95,6 +95,6 @@ ecommerce-frontend/
 
 ```
 
-#Trendy Trio
-#TrioTrendz
-#TriUnity Ventures
+# Trendy Trio
+# TrioTrendz
+# TriUnity Ventures
