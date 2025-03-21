@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 
 // /f:/Start/b_js/app/Profile/page.tsx
