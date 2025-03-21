@@ -98,3 +98,4 @@ ecommerce-frontend/
 # Trendy Trio
 # TrioTrendz
 # TriUnity Ventures
+## JBSTrioTrendz 

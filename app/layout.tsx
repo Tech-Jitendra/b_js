@@ -5,8 +5,9 @@ import store from '@/redux/store';
 import '@/styles/global.css';
 
 import { ReactNode } from 'react';
+import AppHeader from "@/components/Header";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,7 +15,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <html lang="en">
         <body>
           <Layout>
-            <Header>Header Content</Header>
+            <AppHeader />
+            {/* <Header>Header Content</Header> */}
             <Content>{children}</Content>
             <Footer>Footer Content</Footer>
           </Layout>
