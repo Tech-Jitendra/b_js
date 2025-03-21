@@ -3,6 +3,7 @@ import { Carousel, Card, Button, Row, Col, Typography } from 'antd';
 import 'animate.css';
 import "@/styles/page.scss"
 import Image from 'next/image';
+import '@ant-design/icons'
 
 
 const Home: React.FC = () => {

@@ -6,8 +6,9 @@ import '@/styles/global.css';
 
 import { ReactNode } from 'react';
 import AppHeader from "@/components/Header";
+import Footer from "@/components/Footer";
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
@@ -16,9 +17,8 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         <body>
           <Layout>
             <AppHeader />
-            {/* <Header>Header Content</Header> */}
             <Content>{children}</Content>
-            <Footer>Footer Content</Footer>
+            <Footer />
           </Layout>
         </body>
       </html>
