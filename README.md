@@ -94,3 +94,7 @@ ecommerce-frontend/
 └── README.md
 
 ```
+
+#Trendy Trio
+#TrioTrendz
+#TriUnity Ventures

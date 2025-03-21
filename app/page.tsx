@@ -4,10 +4,8 @@ import 'animate.css';
 import "@/styles/page.scss"
 import Image from 'next/image';
 
-// const { Typography } = Card;
 
 const Home: React.FC = () => {
-  // export default function Home() {
   return (
     <div>
       {/* Hero Section */}
@@ -22,9 +20,7 @@ const Home: React.FC = () => {
       {/* Product Section */}
       <div className="product-section">
         <h1>Our Products</h1>
-        <Row justify={"center"} gutter={[16, 16]}
-        // style={{ backgroundColor: "red" }}
-        >
+        <Row justify={"center"} gutter={[16, 16]}>
           {[1, 1, 1, 2, 2, 2].map((item, index) => {
             return (
               <Col span={8} key={index}>
@@ -34,7 +30,7 @@ const Home: React.FC = () => {
                     <div style={{ textAlign: 'center' }}>
                       <Image
                         alt="product1"
-                        src="https://images.pexels.com/photos/4016579/pexels-photo-4016579.jpeg?auto=compress&cs=tinysrgb&w=600"
+                        src="https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600"
                         width={300}
                         height={200}
                       />
@@ -55,99 +51,108 @@ const Home: React.FC = () => {
       {/* Cart Carousel */}
       <div className="cart-carousel">
         <h2>Your Cart</h2>
-        <Carousel autoplay>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="cart1"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Cart Item 1" description="$10.00" />
-            </Card>
-          </div>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="cart2"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Cart Item 2" description="$15.00" />
-            </Card>
-          </div>
+        <Carousel autoplay infinite>
+          {[1, 1, 1, 2, 2, 2].map((item, index) => (
+            <div key={index}>
+              <Row justify={"center"} gutter={[16, 16]}>
+                {[1, 2, 3].map((_, innerIndex) => (
+                  <Col span={8} key={innerIndex} >
+                    <Card
+                      hoverable
+                      cover={
+                        <div style={{ justifyContent: 'center', display: "flex" }}>
+                          <Image
+                            style={{ marginTop: "10px" }}
+                            alt={`product${innerIndex + 1}`}
+                            src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            width={300}
+                            height={200}
+                          />
+                        </div>
+                      }
+                    >
+                      <div>
+                        <h3>Product {innerIndex + 1}</h3>
+                        <p>$20.00</p>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
         </Carousel>
       </div>
 
       {/* Reference Product Carousel */}
       <div className="reference-carousel">
         <h2>Recommended for You</h2>
-        <Carousel autoplay>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="reference1"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Reference Product 1" description="$25.00" />
-            </Card>
-          </div>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="reference2"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Reference Product 2" description="$35.00" />
-            </Card>
-          </div>
+        <Carousel autoplay infinite>
+          {[1, 1, 1, 2, 2, 2].map((item, index) => (
+            <div key={index}>
+              <Row justify={"center"} gutter={[16, 16]}>
+                {[1, 2, 3].map((_, innerIndex) => (
+                  <Col span={8} key={innerIndex} >
+                    <Card
+                      hoverable
+                      cover={
+                        <div style={{ justifyContent: 'center', display: "flex" }}>
+                          <Image
+                            style={{ marginTop: "10px" }}
+                            alt={`product${innerIndex + 1}`}
+                            src="https://images.pexels.com/photos/1082528/pexels-photo-1082528.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            width={300}
+                            height={200}
+                          />
+                        </div>
+                      }
+                    >
+                      <div>
+                        <h3>Product {innerIndex + 1}</h3>
+                        <p>$20.00</p>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
         </Carousel>
       </div>
 
       {/* Recent Search Carousel */}
       <div className="recent-search-carousel">
         <h2>Recent Searches</h2>
-        <Carousel autoplay>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="search1"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Search Item 1" description="$50.00" />
-            </Card>
-          </div>
-          <div>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="search2"
-                  src="https://via.placeholder.com/300x200"
-                />
-              }
-            >
-              <Typography title="Search Item 2" description="$60.00" />
-            </Card>
-          </div>
+        <Carousel autoplay infinite>
+          {[1, 1, 1, 2, 2, 2].map((item, index) => (
+            <div key={index}>
+              <Row justify={"center"} gutter={[16, 16]}>
+                {[1, 2, 3].map((_, innerIndex) => (
+                  <Col span={8} key={innerIndex} >
+                    <Card
+                      hoverable
+                      cover={
+                        <div style={{ justifyContent: 'center', display: "flex" }}>
+                          <Image
+                            style={{ marginTop: "10px" }}
+                            alt={`product${innerIndex + 1}`}
+                            src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            width={300}
+                            height={200}
+                          />
+                        </div>
+                      }
+                    >
+                      <div>
+                        <h3>Product {innerIndex + 1}</h3>
+                        <p>$20.00</p>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
         </Carousel>
       </div>
 
@@ -161,7 +166,7 @@ const Home: React.FC = () => {
               cover={
                 <img
                   alt="category1"
-                  src="https://via.placeholder.com/150x100"
+                  src="https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=600"
                 />
               }
             >
@@ -174,7 +179,7 @@ const Home: React.FC = () => {
               cover={
                 <img
                   alt="category2"
-                  src="https://via.placeholder.com/150x100"
+                  src="https://images.pexels.com/photos/1082528/pexels-photo-1082528.jpeg?auto=compress&cs=tinysrgb&w=600"
                 />
               }
             >
@@ -187,7 +192,7 @@ const Home: React.FC = () => {
               cover={
                 <img
                   alt="category3"
-                  src="https://via.placeholder.com/150x100"
+                  src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600"
                 />
               }
             >
@@ -200,11 +205,11 @@ const Home: React.FC = () => {
               cover={
                 <img
                   alt="category4"
-                  src="https://via.placeholder.com/150x100"
+                  src="https://images.pexels.com/photos/2129970/pexels-photo-2129970.jpeg?auto=compress&cs=tinysrgb&w=600"
                 />
               }
             >
-              <Typography title="Category 4" />
+              <p title="Category 4" />
             </Card>
           </Col>
         </Row>
