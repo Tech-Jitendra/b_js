@@ -1,0 +1,122 @@
+// About Page Styles
+.about-page {
+    padding: 2rem;
+  
+    // Hero Section
+    .hero-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #3498db, #2ecc71);
+      color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+      .hero-title {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+  
+      .hero-subtitle {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+      }
+  
+      .hero-button {
+        background-color: #facc15;
+        border: none;
+        color: #333;
+  
+        &:hover {
+          background-color: darken(#facc15, 10%);
+        }
+      }
+    }
+  
+    // Features Section
+    .features-section {
+      margin: 4rem 0;
+  
+      .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #333;
+      }
+  
+      .feature-card {
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+  
+        .feature-image {
+          border-radius: 8px 8px 0 0;
+        }
+  
+        h4 {
+          color: #007bff;
+        }
+  
+        p {
+          color: #555;
+        }
+      }
+    }
+  
+    // Benefits Section
+    .benefits-section {
+      margin: 4rem 0;
+  
+      .section-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #333;
+      }
+  
+      .benefit-card {
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: rotateY(10deg) scale(1.05);
+        }
+  
+        h4 {
+          color: #2ecc71;
+        }
+  
+        p {
+          color: #555;
+        }
+      }
+    }
+  
+    // Call to Action Section
+    .cta-section {
+      text-align: center;
+      padding: 2rem;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 10px;
+  
+      .cta-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+  
+      .cta-button {
+        background-color: #facc15;
+        border: none;
+        color: #333;
+  
+        &:hover {
+          background-color: darken(#facc15, 10%);
+        }
+      }
+    }
+  }
