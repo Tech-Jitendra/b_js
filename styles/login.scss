@@ -65,6 +65,8 @@
 
     .logo {
       margin-bottom: 2rem;
+      font-size: 2.5rem;
+      font-weight: bold;
     }
 
     .title {
@@ -111,6 +113,28 @@
     p {
       margin-top: 1.5rem;
       color: #555;
+    }
+  }
+}
+
+.auth-toggle {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  span {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0.5rem;
+  }
+
+  .ant-switch {
+    background-color: #3498db;
+
+    &.ant-switch-checked {
+      background-color: #2ecc71;
     }
   }
 }
