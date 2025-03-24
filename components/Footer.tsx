@@ -77,10 +77,10 @@ const Footer = () => {
             <div className="footer-bottom">
                 <p>&copy; 2025 TrioTrendz.com | DMCA | Trademark Takedown</p>
                 <div className="social-icons">
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/profile.php?id=61574655234987" target="_blank" rel="noopener noreferrer">
                         <i><FacebookOutlined /></i>
                     </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/trio.trendz?utm_source=qr&igsh=enk0Mjd6b3MzbXZ5" target="_blank" rel="noopener noreferrer">
                         <i><InstagramOutlined /></i>
                     </a>
                     <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer">
