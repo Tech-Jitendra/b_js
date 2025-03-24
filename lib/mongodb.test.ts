@@ -28,10 +28,7 @@ describe('MongoDB Utility Functions (Mongoose)', () => {
   test('connectToDatabase should connect to MongoDB using Mongoose', async () => {
     mockReadyState.mockReturnValue(0); // Disconnected
     await connectToDatabase();
-    expect(mockConnect).toHaveBeenCalledWith(
-      'mongodb://localhost:27017/E-commerce',
-      { useNewUrlParser: true, useUnifiedTopology: true }
-    );
+    expect(mockConnect).toHaveBeenCalledWith('mongodb://localhost:27017/E-commerce'); // Updated to match the new implementation
     expect(console.log).toHaveBeenCalledWith('Connected to MongoDB using Mongoose');
   });
 
