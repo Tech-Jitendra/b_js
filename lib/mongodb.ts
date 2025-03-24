@@ -7,8 +7,8 @@ export async function connectToDatabase() {
   try {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true,
       });
       console.log('Connected to MongoDB using Mongoose');
     }
