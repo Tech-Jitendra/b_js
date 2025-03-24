@@ -24,28 +24,33 @@ const Home: React.FC = () => {
         <Row justify={"center"} gutter={[16, 16]}>
           {[1, 1, 1, 2, 2, 2].map((item, index) => {
             return (
-              <Col span={8} key={index}>
+                <Col span={8} key={index}>
                 <Link href={`/product-details`}>
                   <Card
-                    hoverable
-                    cover={
-                      <div style={{ textAlign: "center" }}>
-                        <Image
-                          alt="product1"
-                          src="https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600"
-                          width={300}
-                          height={200}
-                        />
-                      </div>
-                    }
-                  >
-                    <div>
-                      <h3>Product 1</h3>
-                      <p>$20.00</p>
+                  hoverable
+                  cover={
+                    <div style={{ textAlign: "center" }}>
+                    <Image
+                      alt="product1"
+                      src="https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600"
+                      width={300}
+                      height={200}
+                    />
                     </div>
+                  }
+                  >
+                  <div>
+                    <h3>Product 1</h3>
+                    <p>$20.00</p>
+                    <p>⭐⭐⭐⭐☆ (4.5)</p>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
+                    <Button type="primary">Buy Now</Button>
+                    <Button>Add to Cart</Button>
+                    </div>
+                  </div>
                   </Card>
                 </Link>
-              </Col>
+                </Col>
             );
           })}
         </Row>
