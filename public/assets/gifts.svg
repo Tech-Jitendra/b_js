@@ -1,0 +1,28 @@
+<!-- Save this as gift.svg in your assets folder -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  width="64"
+  height="64"
+  fill="none"
+>
+  <rect x="12" y="24" width="40" height="32" fill="#FF6F61" />
+  <rect x="12" y="24" width="40" height="8" fill="#FFD93B" />
+  <rect x="28" y="24" width="8" height="32" fill="#FFD93B" />
+  <path
+    d="M32 24c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"
+    fill="#FF6F61"
+  />
+  <path
+    d="M32 24c-4.418 0-8-3.582-8-8h16c0 4.418-3.582 8-8 8z"
+    fill="#FFD93B"
+  />
+  <path
+    d="M32 24c4.418 0 8-3.582 8-8s-3.582-8-8-8v16z"
+    fill="#FFD93B"
+  />
+  <path
+    d="M32 24c4.418 0 8-3.582 8-8H24c0 4.418 3.582 8 8 8z"
+    fill="#FF6F61"
+  />
+</svg>
