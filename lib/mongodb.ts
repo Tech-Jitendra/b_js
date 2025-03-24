@@ -6,10 +6,7 @@ const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/E-commerce';
 export async function connectToDatabase() {
   try {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(uri, {
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true,
-      });
+      await mongoose.connect(uri); // No need for useNewUrlParser or useUnifiedTopology
       console.log('Connected to MongoDB using Mongoose');
     }
     return mongoose.connection;
