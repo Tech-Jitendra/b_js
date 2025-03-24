@@ -1,53 +1,89 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React from 'react';
+import { Button, Form, Input, message } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/slices/userSlice';
+import { RootState } from '../../redux/store';
+import 'animate.css';
+import "@/styles/login.scss";
 
-const Login: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state: RootState) => state.user);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
-        // Add your login logic here
-    };
+  const onFinish = async (values: { email: string; password: string }) => {
+    try {
+      // Simulate an API call
+      if (values.email === 'test@example.com' && values.password === 'password') {
+        const userData = {
+          id: '1',
+          name: 'John Doe',
+          email: values.email,
+        };
 
-    return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '1rem' }}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{ width: '100%', padding: '0.5rem' }}
-                        required
-                    />
-                </div>
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem' }}>
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{ width: '100%', padding: '0.5rem' }}
-                        required
-                    />
-                </div>
-                <button type="submit" style={{ padding: '0.5rem 1rem' }}>
-                    Login
-                </button>
-            </form>
+        // Dispatch the login action
+        dispatch(login(userData));
+        message.success('Login successful!');
+      } else {
+        throw new Error('Invalid email or password');
+      }
+    } catch (error: any) {
+      message.error(error.message || 'Login failed!');
+    }
+  };
+
+  return (
+    <div className="login-page animate__animated animate__fadeIn">
+      {/* Floating Gifts */}
+      <div className="floating-gift"></div>
+      <div className="floating-gift"></div>
+      <div className="floating-gift"></div>
+      <div className="floating-gift"></div>
+
+      <div className="login-container">
+        <div className="logo">
+            {/* <h1> */}
+                Trio Trendz
+
+            {/* </h1> */}
         </div>
-    );
+        <h2 className="title">Login</h2>
+        {isLoggedIn ? (
+          <p>You are already logged in!</p>
+        ) : (
+          <Form
+            name="login-form"
+            layout="vertical"
+            onFinish={onFinish}
+            className="login-form"
+          >
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { required: true, message: 'Please input your email!' },
+                { type: 'email', message: 'Please enter a valid email!' },
+              ]}
+            >
+              <Input placeholder="Enter your email" />
+            </Form.Item>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+            >
+              <Input.Password placeholder="Enter your password" />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="login-button">
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default Login;
+export default LoginPage;

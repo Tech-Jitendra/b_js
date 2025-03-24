@@ -15,11 +15,11 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <html lang="en">
         <body>
-          <Layout>
-            <AppHeader />
+            <Layout>
+            {!(window.location.pathname === '/login' || window.location.pathname === '/register') && <AppHeader />}
             <Content>{children}</Content>
-            <Footer />
-          </Layout>
+            {!(window.location.pathname === '/login' || window.location.pathname === '/register') && <Footer />}
+            </Layout>
         </body>
       </html>
     </Provider>
