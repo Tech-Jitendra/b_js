@@ -13,12 +13,15 @@ import {
   Divider,
   List,
   Avatar,
+  message,
 } from "antd";
+// import { useRouter } from "next/router";
 
 const { Title, Text } = Typography;
 
 const ProductPage: React.FC = () => {
   const carouselRef = useRef<any>(null);
+  // const router = useRouter();
 
   const product = {
     name: "Steelbird SBA-1 Angry Dog Helmet",
@@ -105,6 +108,13 @@ const ProductPage: React.FC = () => {
       comment: "Decent quality for the price, but could improve padding.",
     },
   ];
+
+  const handleAddToCart = () => {
+    // Add to cart logic (can store data in global state or local storage)
+    message.success("added to cart");
+    window.location.href = '/cart';
+    // router.push("/cart"); // Navigate to Cart Page
+  };
 
   return (
     <div style={{ padding: "20px", maxWidth: "1200px", margin: "auto" }}>
@@ -200,6 +210,7 @@ const ProductPage: React.FC = () => {
                       type="primary"
                       style={{ borderRadius: "5px" }}
                       block
+                      onClick={handleAddToCart}
                     >
                       Add to Cart
                     </Button>
