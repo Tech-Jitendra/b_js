@@ -1,165 +1,227 @@
 "use client";
 
-import React, { useState } from "react";
 import {
-  Card,
+  BankOutlined,
+  CreditCardOutlined,
+  DollarCircleOutlined,
+  WalletOutlined,
+} from "@ant-design/icons";
+import {
+  Table,
   Button,
-  Row,
-  Col,
-  Typography,
   InputNumber,
+  Card,
+  Select,
+  Input,
   Modal,
-  Radio,
   Form,
+  Radio,
   message,
 } from "antd";
-import {
-  CreditCardOutlined,
-  WalletOutlined,
-  BankOutlined,
-  DollarCircleOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import Image from "next/image";
+import { useState } from "react";
 import "@/styles/cart.scss";
+import "animate.css";
 
-const { Title, Text } = Typography;
+const { Option } = Select;
 
 interface CartItem {
-  id: number;
-  name: string;
+  key: string;
   image: string;
-  quantity: number;
+  name: string;
+  category: string;
+  color: string;
+  size: string;
   price: number;
+  quantity: number;
 }
 
-const CartPage: React.FC = () => {
+const ShoppingCart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
-      id: 1,
-      name: "Product 1",
+      key: "1",
       image: "https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg",
-      quantity: 1,
-      price: 200,
+      name: "Floral Print Wrap Dress",
+      category: "Women",
+      color: "Blue",
+      size: "42",
+      price: 20.5,
+      quantity: 2,
     },
     {
-      id: 2,
-      name: "Product 2",
+      key: "2",
       image:
         "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg",
+      name: "Polka Dot Wrap Dress",
+      category: "Women",
+      color: "Blue",
+      size: "42",
+      price: 30.5,
       quantity: 1,
-      price: 150,
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      image: "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg",
-      quantity: 1,
-      price: 300,
     },
   ]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState<string>("credit_card");
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return message.error("Quantity cannot be less than 1");
-    setCartItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
+  const handleQuantityChange = (value: number, key: string) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.key === key ? { ...item, quantity: value } : item
       )
     );
   };
 
-  const removeItem = (id: number) => {
-    setCartItems((items) => items.filter((item) => item.id !== id));
-    message.success("Item removed from the cart!");
+  const columns = [
+    {
+      title: "Product",
+      dataIndex: "image",
+      render: (src: string, record: CartItem) => (
+        <div
+          className="animate__animated animate__zoomIn"
+          style={{ display: "flex", alignItems: "center", gap: 10 }}
+        >
+          <Image
+            src={src}
+            alt={record.name}
+            width={60}
+            height={80}
+            style={{ borderRadius: "5px" }}
+          />
+          <div>
+            <strong>{record.name}</strong>
+            <p style={{ margin: 0, fontSize: 12 }}>
+              Color: {record.color} | Size: {record.size}
+            </p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      render: (price: number) => `$${price.toFixed(2)}`,
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      render: (quantity: number, record: CartItem) => (
+        <InputNumber
+          min={1}
+          defaultValue={quantity}
+          className="animate__animated animate__shakeX"
+          onChange={(value) => handleQuantityChange(value || 1, record.key)}
+        />
+      ),
+    },
+    {
+      title: "Total Price",
+      render: (_: any, record: CartItem) => (
+        <span style={{ color: "#ffa500", fontWeight: "bold" }}>
+          ${(record.price * record.quantity).toFixed(2)}
+        </span>
+      ),
+    },
+  ];
+
+  const handleCheckout = () => {
+    setIsModalVisible(true);
   };
 
-  const totalItems = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
-  );
+  const handlePayment = () => {
+    message.success(`Payment method: ${selectedPaymentMethod}`);
+    setIsModalVisible(false);
+  };
 
   return (
-    <div className="cart-container">
-      <Row gutter={[16, 16]}>
-        {cartItems.map((item) => (
-          <Col xs={24} sm={12} md={8} key={item.id}>
-            <Card
-              hoverable
-              cover={
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="product-image"
-                />
-              }
-            >
-              <Title level={4}>{item.name}</Title>
-              <Text>
-                Price: <strong>₹{item.price}</strong>
-              </Text>
-              <div className="quantity-control">
-                <Button
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                >
-                  -
-                </Button>
-                <InputNumber
-                  value={item.quantity}
-                  min={1}
-                  onChange={(value) => updateQuantity(item.id, value || 1)}
-                />
-                <Button
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                >
-                  +
-                </Button>
-              </div>
-              <Button
-                danger
-                icon={<DeleteOutlined />}
-                block
-                onClick={() => removeItem(item.id)}
-              >
-                Remove
-              </Button>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+    <div
+      className="cart-container"
+      style={{
+        display: "flex",
+        gap: "2rem",
+        padding: "2rem",
+        flexWrap: "wrap",
+      }}
+    >
+      {/* Left Side - Shopping Table */}
+      <div style={{ flex: 2 }}>
+        <h2 className="animate__animated animate__fadeInLeft">Shopping Bag</h2>
+        <p className="animate__animated animate__fadeInLeft">
+          <strong>{cartItems.length} items</strong> in your bag.
+        </p>
+        <Table
+          columns={columns}
+          dataSource={cartItems}
+          pagination={false}
+          bordered
+        />
+      </div>
 
-      <Card className="price-summary-card">
-        <Title level={3}>Price Summary</Title>
-        <div className="price-details">
-          <Text>
-            Total Items: <strong>{totalItems}</strong>
-          </Text>
-          <Text>
-            Total Price: <strong>₹{totalPrice}</strong>
-          </Text>
-        </div>
+      {/* Right Side - Summary */}
+      <Card
+        className="animate__animated animate__fadeInRight"
+        style={{ maxWidth: 400, borderRadius: 10 }}
+      >
+        <h3>Calculated Shipping</h3>
+        <Select
+          placeholder="Country"
+          style={{ width: "100%", marginBottom: 10 }}
+        >
+          <Option value="US">United States</Option>
+          <Option value="IN">India</Option>
+        </Select>
+        <Select
+          placeholder="State / City"
+          style={{ width: "100%", marginBottom: 10 }}
+        >
+          <Option value="NY">New York</Option>
+          <Option value="CA">California</Option>
+        </Select>
+        <Input placeholder="ZIP Code" style={{ marginBottom: 10 }} />
+        <Button type="primary" block>
+          Update
+        </Button>
+
+        <h3 style={{ marginTop: "1rem" }}>Coupon Code</h3>
+        <Input placeholder="Enter Code" style={{ marginBottom: 10 }} />
+        <Button block>Apply</Button>
+
+        <h3
+          style={{
+            marginTop: "1rem",
+            background: "#ffa500",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+        >
+          Cart Total
+        </h3>
+        <p>
+          Subtotal: <strong>$71.50</strong>
+        </p>
+        <p>
+          Discount: <strong style={{ color: "red" }}>- $4.00</strong>
+        </p>
+        <h2 style={{ color: "#ffa500" }}>$67.50</h2>
         <Button
           type="primary"
           block
-          onClick={() => setIsModalVisible(true)}
-          className="checkout-button"
+          onClick={handleCheckout}
+          className="animate__animated animate__pulse animate__infinite"
         >
-          Proceed to Checkout
+          Checkout
         </Button>
       </Card>
 
+      {/* Payment Modal */}
       <Modal
         title="Choose Your Payment Method"
-        visible={isModalVisible}
-        onOk={() => message.success(`Payment method: ${selectedPaymentMethod}`)}
+        open={isModalVisible}
+        onOk={handlePayment}
         onCancel={() => setIsModalVisible(false)}
         okText="Pay Now"
         cancelText="Cancel"
-        className="payment-modal"
+        className="payment-modal animate__animated animate__fadeInDown"
       >
         <Form>
           <Radio.Group
@@ -189,4 +251,4 @@ const CartPage: React.FC = () => {
   );
 };
 
-export default CartPage;
+export default ShoppingCart;
