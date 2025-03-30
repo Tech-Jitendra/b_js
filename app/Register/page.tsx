@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useDispatch } from "react-redux";
-import { register } from "@/redux/slices/userSlice"; // Create a register action in your slice
+import type { AppDispatch } from "@/redux/store"; // Ensure AppDispatch is exported from your store
+import { registerUser } from "@/redux/slices/userSlice"; // Create a register action in your slice
 import "animate.css";
 import "@/styles/register.scss";
 
 const RegisterPage: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [registerMethod, setRegisterMethod] = useState<"email" | "mobile">("email");
 
   const onFinish = async (values: {
@@ -27,12 +29,16 @@ const RegisterPage: React.FC = () => {
         id: "2",
         name: values.name,
         email: registerMethod === "email" ? values.emailOrMobile : "",
-        mobile: registerMethod === "mobile" ? values.emailOrMobile : "",
+        password: values.password,
       };
-
       // Dispatch the register action
-      dispatch(register(userData));
-      message.success("Registration successful!");
+      const result = await dispatch(registerUser(userData));
+      console.log("Registration result:", result);
+      if (registerUser.fulfilled.match(result)) {
+        message.success("Registration successful!");
+      } else {
+        throw new Error(String(result.payload) || "Registration failed!");
+      }
     } catch (error: any) {
       message.error(error.message || "Registration failed!");
     }
