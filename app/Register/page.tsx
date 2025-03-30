@@ -1,84 +1,138 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
+import { Button, Form, Input, message } from "antd";
+import { useDispatch } from "react-redux";
+import { register } from "@/redux/slices/userSlice"; // Create a register action in your slice
+import "animate.css";
+import "@/styles/register.scss";
 
-const Register: React.FC = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    });
+const RegisterPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const [registerMethod, setRegisterMethod] = useState<"email" | "mobile">("email");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+  const onFinish = async (values: {
+    name: string;
+    emailOrMobile: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
+    try {
+      // Validate password and confirm password
+      if (values.password !== values.confirmPassword) {
+        throw new Error("Passwords do not match!");
+      }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
-        console.log('Registration data:', formData);
-        // Add your registration logic here
-    };
+      // Split emailOrMobile into email and mobile based on the selected method
+      const userData = {
+        id: "2",
+        name: values.name,
+        email: registerMethod === "email" ? values.emailOrMobile : "",
+        mobile: registerMethod === "mobile" ? values.emailOrMobile : "",
+      };
 
-    return (
-        <div className="register-container">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
+      // Dispatch the register action
+      dispatch(register(userData));
+      message.success("Registration successful!");
+    } catch (error: any) {
+      message.error(error.message || "Registration failed!");
+    }
+  };
+
+  return (
+    <div className="register-page">
+      <div className="register-container">
+        {/* Left Column */}
+        <div className="register-left">
+          <div className="logo">Trio Trendz</div>
+          <h2 className="title">Register</h2>
+          <Form
+            name="register-form"
+            layout="vertical"
+            onFinish={onFinish}
+            className="register-form"
+          >
+            {/* Name Input */}
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: "Please input your name!" }]}
+            >
+              <Input placeholder="Enter your name" />
+            </Form.Item>
+
+            {/* Dynamic Input for Email/Mobile */}
+            <Form.Item
+              label={registerMethod === "email" ? "Email" : "Mobile"}
+              name="emailOrMobile"
+              rules={[
+                { required: true, message: `Please input your ${registerMethod}!` },
+                ...(registerMethod === "email"
+                  ? [{ type: "email" as const, message: "Please enter a valid email!" }]
+                  : [{ pattern: /^\d{10}$/, message: "Please enter a valid mobile number!" }]),
+              ]}
+            >
+              <Input
+                placeholder={`Enter your ${registerMethod}`}
+                type={registerMethod === "email" ? "email" : "text"}
+              />
+            </Form.Item>
+
+            {/* Password Input */}
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+                { min: 6, message: "Password must be at least 6 characters long!" },
+              ]}
+            >
+              <Input.Password placeholder="Enter your password" />
+            </Form.Item>
+
+            {/* Confirm Password Input */}
+            <Form.Item
+              label="Confirm Password"
+              name="confirmPassword"
+              rules={[
+                { required: true, message: "Please confirm your password!" },
+                { min: 6, message: "Password must be at least 6 characters long!" },
+              ]}
+            >
+              <Input.Password placeholder="Confirm your password" />
+            </Form.Item>
+
+            {/* Submit Button */}
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="register-button">
+                Register
+              </Button>
+            </Form.Item>
+
+            {/* Switch Registration Method */}
+            <div className="register-options">
+              <Button
+                type="link"
+                onClick={() =>
+                  setRegisterMethod(registerMethod === "email" ? "mobile" : "email")
+                }
+              >
+                Register with {registerMethod === "email" ? "Mobile" : "Email"}
+              </Button>
+            </div>
+          </Form>
         </div>
-    );
+
+        {/* Right Column */}
+        <div className="register-right">
+          <img
+            src="/assets/register-illustration.svg"
+            alt="Register Illustration"
+            className="register-image"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Register;
+export default RegisterPage;

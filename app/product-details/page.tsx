@@ -15,13 +15,13 @@ import {
   Avatar,
   message,
 } from "antd";
-// import { useRouter } from "next/router";
+import { useWindowSize } from "react-use";
 
 const { Title, Text } = Typography;
 
 const ProductPage: React.FC = () => {
   const carouselRef = useRef<any>(null);
-  // const router = useRouter();
+  const { width } = useWindowSize(); // Get the window width
 
   const product = {
     name: "Steelbird SBA-1 Angry Dog Helmet",
@@ -111,9 +111,11 @@ const ProductPage: React.FC = () => {
 
   const handleAddToCart = () => {
     // Add to cart logic (can store data in global state or local storage)
-    message.success("added to cart");
-    window.location.href = '/cart';
-    // router.push("/cart"); // Navigate to Cart Page
+    message.success("Added to cart");
+    // Redirect to cart page
+    if (typeof window !== "undefined") {
+      window.location.href = "/cart";
+    }
   };
 
   return (
@@ -140,7 +142,7 @@ const ProductPage: React.FC = () => {
                         alt={`Product ${index + 1}`}
                         style={{
                           width: "100%",
-                          height: "300px",
+                          height: width < 768 ? "200px" : "300px", // Adjust height based on screen width
                           objectFit: "cover",
                           borderRadius: "10px",
                         }}
@@ -153,7 +155,7 @@ const ProductPage: React.FC = () => {
                         controls
                         style={{
                           width: "100%",
-                          height: "300px",
+                          height: width < 768 ? "200px" : "300px", // Adjust height based on screen width
                           objectFit: "cover",
                           borderRadius: "10px",
                         }}
@@ -227,93 +229,6 @@ const ProductPage: React.FC = () => {
               </Col>
             </Row>
           </Card>
-        </Col>
-      </Row>
-
-      {/* Customer Reviews */}
-      <Row style={{ marginTop: "20px" }} justify="center">
-        <Col span={24}>
-          <Title level={3}>Customer Reviews</Title>
-          <Divider />
-        </Col>
-        <Col xs={24} md={18}>
-          <List
-            itemLayout="horizontal"
-            dataSource={comments}
-            renderItem={(item) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.avatar} />}
-                  title={
-                    <Space>
-                      <Text strong>{item.user}</Text>
-                      <Rate
-                        disabled
-                        defaultValue={item.rating}
-                        style={{ fontSize: "14px" }}
-                      />
-                    </Space>
-                  }
-                  description={item.comment}
-                />
-              </List.Item>
-            )}
-          />
-        </Col>
-      </Row>
-
-      {/* Similar Products - Carousel */}
-      <Row gutter={[24, 24]} style={{ marginTop: "20px" }} justify="center">
-        <Col span={24}>
-          <Title level={3}>Similar Products</Title>
-          <Divider />
-        </Col>
-        <Col span={24}>
-          <Carousel autoplay dots>
-            {[0, 1].map((slide) => (
-              <div key={slide}>
-                <Row gutter={[24, 24]} justify="center">
-                  {similarProducts
-                    .slice(slide * 3, slide * 3 + 3)
-                    .map((item, index) => (
-                      <Col xs={24} sm={12} md={8} key={index}>
-                        <Card
-                          hoverable
-                          style={{
-                            borderRadius: "10px",
-                            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                          }}
-                          cover={
-                            <img
-                              src={item.image}
-                              alt={item.name}
-                              style={{
-                                width: "100%",
-                                height: "200px",
-                                objectFit: "cover",
-                                borderRadius: "10px 10px 0 0",
-                              }}
-                            />
-                          }
-                        >
-                          <Title level={4}>{item.name}</Title>
-                          <Text strong style={{ display: "block" }}>
-                            ₹{item.price}
-                          </Text>
-                          <Button
-                            type="primary"
-                            style={{ marginTop: "10px", borderRadius: "5px" }}
-                            block
-                          >
-                            View Details
-                          </Button>
-                        </Card>
-                      </Col>
-                    ))}
-                </Row>
-              </div>
-            ))}
-          </Carousel>
         </Col>
       </Row>
     </div>

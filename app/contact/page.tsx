@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Ensure this is a Client Component
 
 import React from "react";
 import {
@@ -9,10 +9,8 @@ import {
   Button,
   Form,
   Card,
-  Space,
   message,
 } from "antd";
-import { motion } from "framer-motion"; // Framer Motion for animation
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -62,9 +60,7 @@ const ContactPage: React.FC = () => {
               <Form.Item
                 label="Full Name"
                 name="name"
-                rules={[
-                  { required: true, message: "Please enter your full name!" },
-                ]}
+                rules={[{ required: true, message: "Please enter your full name!" }]}
               >
                 <Input placeholder="Enter your name" />
               </Form.Item>
@@ -73,10 +69,7 @@ const ContactPage: React.FC = () => {
                 name="email"
                 rules={[
                   { required: true, message: "Please enter your email!" },
-                  {
-                    type: "email",
-                    message: "Please enter a valid email address!",
-                  },
+                  { type: "email", message: "Please enter a valid email address!" },
                 ]}
               >
                 <Input placeholder="Enter your email" />
@@ -91,9 +84,7 @@ const ContactPage: React.FC = () => {
               <Form.Item
                 label="Message"
                 name="message"
-                rules={[
-                  { required: true, message: "Please enter your message!" },
-                ]}
+                rules={[{ required: true, message: "Please enter your message!" }]}
               >
                 <TextArea rows={4} placeholder="Enter your message" />
               </Form.Item>

@@ -1,33 +1,51 @@
 "use client";
-import React, { useState } from "react";
-import { Button, Form, Input, message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/slices/userSlice";
-import { RootState } from "../../redux/store";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
 import "animate.css";
 import "@/styles/login.scss";
+import Confetti from "react-confetti";
+import React, { useState, useEffect } from "react";
+import { RootState } from "../../redux/store";
+import { login } from "../../redux/slices/userSlice";
+import { Button, Form, Input, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
   const [showConfetti, setShowConfetti] = useState(false);
-  const { width, height } = useWindowSize(); // Get window dimensions for confetti
+  const [windowSize, setWindowSize] = useState<{ width: number; height: number } | null>(null);
   const [authMethod, setAuthMethod] = useState<"password" | "otp">("password");
   const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email");
 
-  const onFinish = async (values: { emailOrMobile: string; passwordOrOtp: string }) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access window safely
+      const handleResize = () => {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+      };
+
+      // Set initial size
+      handleResize();
+
+      // Add event listener for window resize
+      window.addEventListener("resize", handleResize);
+
+      // Cleanup event listener on unmount
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  const onFinish = async (values: { mobile: string; email: string; password: string; otp: string }) => {
     try {
       // Simulate an API call
       if (
-        (values.emailOrMobile === "test@example.com" || values.emailOrMobile === "1234567890") &&
-        (values.passwordOrOtp === "password" || values.passwordOrOtp === "123456")
+        (values.email === "test@example.com" || values.mobile === "1234567890") &&
+        (values.password === "password" || values.otp === "123456")
       ) {
         const userData = {
           id: "1",
           name: "John Doe",
-          email: values.emailOrMobile,
+          email: values.email,
+          mobile: values.mobile,
         };
 
         // Dispatch the login action
@@ -46,7 +64,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="login-page animate__animated animate__fadeIn">
       {/* Confetti Animation */}
-      {showConfetti && <Confetti width={width} height={height} />}
+      {showConfetti && windowSize && <Confetti width={windowSize.width} height={windowSize.height} />}
 
       <div className="login-container">
         <div className="logo">Trio Trendz</div>
@@ -63,11 +81,11 @@ const LoginPage: React.FC = () => {
             {/* Dynamic Input for Email/Mobile */}
             <Form.Item
               label={loginMethod === "email" ? "Email" : "Mobile"}
-              name="emailOrMobile"
+              name="email"
               rules={[
                 { required: true, message: `Please input your ${loginMethod}!` },
                 ...(loginMethod === "email"
-                  ? [{ type: "email", message: "Please enter a valid email!" }]
+                  ? [{ type: "email" as const, message: "Please enter a valid email!" }]
                   : [{ pattern: /^\d{10}$/, message: "Please enter a valid mobile number!" }]),
               ]}
             >
