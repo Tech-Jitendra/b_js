@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { Button, Form, Input, message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/slices/userSlice";
-import { RootState } from "../../redux/store";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
 import "animate.css";
 import "@/styles/login.scss";
+import Confetti from "react-confetti";
+import React, { useState } from "react";
+import { useWindowSize } from "react-use";
+import { RootState } from "../../redux/store";
+import { login } from "../../redux/slices/userSlice";
+import { Button, Form, Input, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -64,11 +64,11 @@ const LoginPage: React.FC = () => {
             {/* Dynamic Input for Email/Mobile */}
             <Form.Item
               label={loginMethod === "email" ? "Email" : "Mobile"}
-              name="emailOrMobile"
+              name="email"
               rules={[
                 { required: true, message: `Please input your ${loginMethod}!` },
                 ...(loginMethod === "email"
-                  ? [{ type: "email", message: "Please enter a valid email!" }]
+                  ? [{ type: "email" as const, message: "Please enter a valid email!" }]
                   : [{ pattern: /^\d{10}$/, message: "Please enter a valid mobile number!" }]),
               ]}
             >
