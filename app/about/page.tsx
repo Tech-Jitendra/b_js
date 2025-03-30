@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button } from "antd";
 import "animate.css";
