@@ -1,0 +1,40 @@
+// Modal Styles
+.payment-modal {
+  .ant-modal-title {
+    color: #0073e6;
+    font-weight: bold;
+  }
+  .ant-modal-footer {
+    justify-content: center;
+    background-color: #f0f5ff;
+  }
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+
+  .payment-option {
+    padding: 1rem;
+    border: 1px solid #0073e6;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      background-color: #e6f7ff;
+      border-color: #005bb5;
+    }
+
+    .anticon {
+      font-size: 1.25rem;
+      color: #0073e6;
+    }
+  }
+}
+
