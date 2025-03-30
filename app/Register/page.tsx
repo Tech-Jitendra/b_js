@@ -44,7 +44,7 @@ const RegisterPage: React.FC = () => {
         {/* Left Column */}
         <div className="register-left">
           <div className="logo">Trio Trendz</div>
-          <h2 className="title">Register</h2>
+          <h2 className="title">Sign Up</h2>
           <Form
             name="register-form"
             layout="vertical"
