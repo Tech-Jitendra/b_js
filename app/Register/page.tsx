@@ -67,7 +67,7 @@ const RegisterPage: React.FC = () => {
               rules={[
                 { required: true, message: `Please input your ${registerMethod}!` },
                 ...(registerMethod === "email"
-                  ? [{ type: "email", message: "Please enter a valid email!" }]
+                  ? [{ type: "email" as const, message: "Please enter a valid email!" }]
                   : [{ pattern: /^\d{10}$/, message: "Please enter a valid mobile number!" }]),
               ]}
             >
