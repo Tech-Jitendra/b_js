@@ -17,17 +17,18 @@ const LoginPage: React.FC = () => {
   const [authMethod, setAuthMethod] = useState<"password" | "otp">("password");
   const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email");
 
-  const onFinish = async (values: { emailOrMobile: string; passwordOrOtp: string }) => {
+  const onFinish = async (values: { mobile: string; email: string; password: string; otp: string }) => {
     try {
       // Simulate an API call
       if (
-        (values.emailOrMobile === "test@example.com" || values.emailOrMobile === "1234567890") &&
-        (values.passwordOrOtp === "password" || values.passwordOrOtp === "123456")
+        (values.email === "test@example.com" || values.mobile === "1234567890") &&
+        (values.password === "password" || values.otp === "123456")
       ) {
         const userData = {
           id: "1",
           name: "John Doe",
-          email: values.emailOrMobile,
+          email: values.email,
+          mobile: values.mobile,
         };
 
         // Dispatch the login action
@@ -79,9 +80,8 @@ const LoginPage: React.FC = () => {
 
             {/* Dynamic Input for Password or OTP */}
             <div
-              className={`animate__animated ${
-                authMethod === "password" ? "animate__fadeInLeft" : "animate__fadeInRight"
-              }`}
+              className={`animate__animated ${authMethod === "password" ? "animate__fadeInLeft" : "animate__fadeInRight"
+                }`}
             >
               <Form.Item
                 label={authMethod === "password" ? "Password" : "OTP"}
