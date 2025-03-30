@@ -2,8 +2,7 @@
 import "animate.css";
 import "@/styles/login.scss";
 import Confetti from "react-confetti";
-import React, { useState } from "react";
-import { useWindowSize } from "react-use";
+import React, { useState, useEffect } from "react";
 import { RootState } from "../../redux/store";
 import { login } from "../../redux/slices/userSlice";
 import { Button, Form, Input, message } from "antd";
@@ -13,9 +12,27 @@ const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
   const [showConfetti, setShowConfetti] = useState(false);
-  const { width, height } = useWindowSize(); // Get window dimensions for confetti
+  const [windowSize, setWindowSize] = useState<{ width: number; height: number } | null>(null);
   const [authMethod, setAuthMethod] = useState<"password" | "otp">("password");
   const [loginMethod, setLoginMethod] = useState<"email" | "mobile">("email");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access window safely
+      const handleResize = () => {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+      };
+
+      // Set initial size
+      handleResize();
+
+      // Add event listener for window resize
+      window.addEventListener("resize", handleResize);
+
+      // Cleanup event listener on unmount
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   const onFinish = async (values: { mobile: string; email: string; password: string; otp: string }) => {
     try {
@@ -47,7 +64,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="login-page animate__animated animate__fadeIn">
       {/* Confetti Animation */}
-      {showConfetti && <Confetti width={width} height={height} />}
+      {showConfetti && windowSize && <Confetti width={windowSize.width} height={windowSize.height} />}
 
       <div className="login-container">
         <div className="logo">Trio Trendz</div>
@@ -80,8 +97,9 @@ const LoginPage: React.FC = () => {
 
             {/* Dynamic Input for Password or OTP */}
             <div
-              className={`animate__animated ${authMethod === "password" ? "animate__fadeInLeft" : "animate__fadeInRight"
-                }`}
+              className={`animate__animated ${
+                authMethod === "password" ? "animate__fadeInLeft" : "animate__fadeInRight"
+              }`}
             >
               <Form.Item
                 label={authMethod === "password" ? "Password" : "OTP"}
