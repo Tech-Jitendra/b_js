@@ -7,6 +7,7 @@ import "@/styles/global.css";
 import { ReactNode, useEffect, useState } from "react";
 import AppHeader from "@/components/Header";
 import Footer from "@/components/Footer";
+import '@ant-design/v5-patch-for-react-19'; //Import the compatibility package at the application entry
 
 const { Content } = Layout;
 

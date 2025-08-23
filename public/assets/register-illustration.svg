@@ -1,0 +1,23 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 500 500"
+  width="500"
+  height="500"
+>
+  <!-- Background Circle -->
+  <circle cx="250" cy="250" r="250" fill="#f0f4ff" />
+
+  <!-- User Icon -->
+  <circle cx="250" cy="180" r="80" fill="#3498db" />
+  <circle cx="250" cy="180" r="70" fill="#ffffff" />
+  <circle cx="250" cy="180" r="50" fill="#3498db" />
+
+  <!-- Body -->
+  <rect x="180" y="260" width="140" height="180" rx="70" fill="#3498db" />
+  <rect x="190" y="270" width="120" height="160" rx="60" fill="#ffffff" />
+
+  <!-- Register Icon -->
+  <rect x="220" y="320" width="60" height="20" rx="10" fill="#3498db" />
+  <rect x="220" y="360" width="60" height="20" rx="10" fill="#3498db" />
+</svg>
