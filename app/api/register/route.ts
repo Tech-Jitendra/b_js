@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User =  mongoose.model("Users", userSchema) //mongoose.models.User || mongoose.model("User", userSchema);
 
 export async function POST(request: Request) {
   try {

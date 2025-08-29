@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { logError } from './utils'; // Assuming utils.ts has a logError function
 
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/E-commerce';
+const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/E-commerce'// TrioTrendzLocal
 
 export async function connectToDatabase() {
   try {
